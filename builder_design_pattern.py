@@ -1,76 +1,67 @@
 '''
 +---------------------+        +------------------+
-|      Desktop        |        |   DesktopBuilder |
+|      Desktop        |        |  DesktopBuilder  |
 +---------------------+        +------------------+
-| - motherboard: str |        |                |
-| - processor: str    |        |                |
-| - memory: str       |        |                |
-| - storage: str      |        |                |
-| - graphics_card: str|        |                |
-+---------------------+        |                |
-| + display(): None  |        |                |
-+---------------------+        |                |
-                               |                |
-+----------------------+        |                |
-|    DesktopBuilder    |        |                |
-+----------------------+        |                |
-| - desktop: Desktop  |<>------|                |
-+----------------------+        |                |
-| + build_motherboard(): None |                |
-| + build_processor(): None   |                |
-| + build_memory(): None      |                |
-| + build_storage(): None     |                |
-| + build_graphics_card(): None|                |
-| + get_desktop(): Desktop   |                |
-+----------------------+        +------------------+
-         |                                      |
-         |                                      |
-         |                                      |
-         |            +------------------+      |
-         |            | DellDesktopBuilder|      |
-         |            +------------------+      |
-         |            |                  |      |
-         |            | + build_motherboard(): None |    |
-         |            | + build_processor(): None  |    |
-         |            | + build_memory(): None     |    |
-         |            | + build_storage(): None    |    |
-         |            | + build_graphics_card(): None |  |
-         |            |                      |         |
-         |            +----------------------+         |
-         |                                          |
-         |                                          |
-         |            +----------------------+        |
-         |            | HpDesktopBuilder   |          |
-         |            +----------------------+        |
-         |            |                  |            |
-         |            | + build_motherboard(): None |  |
-         |            | + build_processor(): None  |  |
-         |            | + build_memory(): None     |  |
-         |            | + build_storage(): None    |  |
-         |            | + build_graphics_card(): None | |
-         |            |                      |        |
-         |            +----------------------+        |
-         |                                          |
-         |                                          |
-         |            +----------------------+        |
-         |            | DesktopDirector   |          |
-         |            +----------------------+        |
-         |            |                  |            |
+| - motherboard: str |        |                  |
+| - processor: str    |        |                  |
+| - memory: str       |        |                  |
+| - storage: str      |        |                  |
+| - graphics_card: str|        |                  |
++---------------------+        |                  |
+| + display(): None  |        |                  |
+| + get_motherboard(): str |  |                  |
+| + set_motherboard(motherboard: str): None |    |
+| + get_processor(): str |     |                  |
+| + set_processor(processor: str): None |       |
+| + get_memory(): str |         |                  |
+| + set_memory(memory: str): None |              |
+| + get_storage(): str |        |                  |
+| + set_storage(storage: str): None |            |
+| + get_graphics_card(): str |  |                  |
+| + set_graphics_card(graphics_card: str): None | |
++---------------------+        +------------------+
+         |                               |
+         |                               |
+         |                               |
+         |            +------------------+|
+         |            | DellDesktopBuilder||
+         |            +------------------+|
+         |            |                  ||
+         |            | + build_motherboard(): None |
+         |            | + build_processor(): None  |
+         |            | + build_memory(): None     |
+         |            | + build_storage(): None    |
+         |            | + build_graphics_card(): None |
+         |            |                      ||
+         |            +----------------------+
+         |
+         |            +----------------------+
+         |            | HpDesktopBuilder   |
+         |            +----------------------+
+         |            |                  |
+         |            | + build_motherboard(): None |
+         |            | + build_processor(): None  |
+         |            | + build_memory(): None     |
+         |            | + build_storage(): None    |
+         |            | + build_graphics_card(): None |
+         |            |                      |
+         |
+         |            +----------------------+
+         |            | DesktopDirector   |
+         |            +----------------------+
+         |            |                  |
          |            | + build_desktop(builder: DesktopBuilder): Desktop |
-         |            |                  |            |
-         |            +------------------+            |
-         |                                          |
-         |                                          |
-         |            +-----------------------+      |
-         |            | DesktopBuilderDemo    |       |
-         |            +-----------------------+      |
-         |            |                       |      |
-         |            | main(args: list): None |     |
-         |            |                       |      |
-         |            +-----------------------+      |
-         +------------------------------------------+
-'''
+         |            |                  |
+         |
+         |            +-----------------------+
+         |            | DesktopBuilderDemo    |
+         |            +-----------------------+
+         |            |                       |
+         |            | main(args: list): None |
+         |            |                       |
+         +-----------------------------------+
 
+'''
 class Desktop:
     def __init__(self):
         self.motherboard = ""
@@ -86,6 +77,36 @@ class Desktop:
         print("Memory:", self.memory)
         print("Storage:", self.storage)
         print("Graphics Card:", self.graphics_card)
+
+    def get_motherboard(self):
+        return self.motherboard
+
+    def set_motherboard(self, motherboard):
+        self.motherboard = motherboard
+
+    def get_processor(self):
+        return self.processor
+
+    def set_processor(self, processor):
+        self.processor = processor
+
+    def get_memory(self):
+        return self.memory
+
+    def set_memory(self, memory):
+        self.memory = memory
+
+    def get_storage(self):
+        return self.storage
+
+    def set_storage(self, storage):
+        self.storage = storage
+
+    def get_graphics_card(self):
+        return self.graphics_card
+
+    def set_graphics_card(self, graphics_card):
+        self.graphics_card = graphics_card
 
 
 class DesktopBuilder:
@@ -113,36 +134,36 @@ class DesktopBuilder:
 
 class DellDesktopBuilder(DesktopBuilder):
     def build_motherboard(self):
-        self.desktop.motherboard = "Dell Motherboard"
+        self.desktop.set_motherboard("Dell Motherboard")
 
     def build_processor(self):
-        self.desktop.processor = "Dell Processor"
+        self.desktop.set_processor("Dell Processor")
 
     def build_memory(self):
-        self.desktop.memory = "32GB DDR4 RAM"
+        self.desktop.set_memory("32GB DDR4 RAM")
 
     def build_storage(self):
-        self.desktop.storage = "1TB SSD + 2TB HDD"
+        self.desktop.set_storage("1TB SSD + 2TB HDD")
 
     def build_graphics_card(self):
-        self.desktop.graphics_card = "NVIDIA RTX 3080"
+        self.desktop.set_graphics_card("NVIDIA RTX 3080")
 
 
 class HpDesktopBuilder(DesktopBuilder):
     def build_motherboard(self):
-        self.desktop.motherboard = "HP Motherboard"
+        self.desktop.set_motherboard("HP Motherboard")
 
     def build_processor(self):
-        self.desktop.processor = "Intel Core i5"
+        self.desktop.set_processor("Intel Core i5")
 
     def build_memory(self):
-        self.desktop.memory = "16GB DDR4 RAM"
+        self.desktop.set_memory("16GB DDR4 RAM")
 
     def build_storage(self):
-        self.desktop.storage = "512GB SSD"
+        self.desktop.set_storage("512GB SSD")
 
     def build_graphics_card(self):
-        self.desktop.graphics_card = "Integrated Graphics"
+        self.desktop.set_graphics_card("Integrated Graphics")
 
 
 class DesktopDirector:
